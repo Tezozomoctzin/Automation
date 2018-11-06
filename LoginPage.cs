@@ -7,65 +7,48 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium.Support;
+using System.Configuration;
 
 namespace selenium_try
 {
 
-    class LoginPage
+    class LoginPage:PageBase
     {
+
+        private static readonly By UsernameField = By.Id("user_nickname");
+        private static readonly By PasswordField = By.Id("user_password");
+        private static readonly By SubmitButton = By.Id("submit_user");
+
         private IWebDriver driver;
-        private IWebElement element;
 
-
-        public static LoggerIn CreateLogger()
-        {
-            return new LoggerIn();
-        }
-        public IWebDriver Driver
-        {
-            get { return driver; }
-            set { driver = value; }
-        }
-
-        public IWebElement Element
-        {
-
-            get { return element; }
-            set { element = value; }
-        }
-
-        public LoginPage()
-        {
-
-        }
-
-        public LoginPage(IWebDriver driver)
+        public LoginPage(IWebDriver driver) : base(driver)
         {
             this.driver = driver;
         }
 
-        public LoginPage(IWebDriver driver, IWebElement element)
+        public LoginPage NavigateToLogin()
         {
-            this.driver = driver;
-            this.element = element;
+            string url = CredsConfiguration.LoginUrl;
+            this.driver.Navigate().GoToUrl(new Uri(url));
+            return this;
         }
-        public void CallLoginPage()
+
+        public LoginPage EnterUsername(string login)
         {
-            driver.FindElement(By.Id("sign_in")).Click();
-            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            wait.Until(driver => driver.FindElement(By.Id("user_nickname")));
-            wait.Until(driver => driver.FindElement(By.Id("user_password")));
+            this.driver.FindElement(UsernameField).SendKeys(login);
+            return this;
         }
-        public void EnterCredentials(string login, string password)
+
+        public LoginPage EnterPassword(string password)
         {
-            driver.FindElement(By.Id("user_nickname")).SendKeys(login);
-            driver.FindElement(By.Id("user_password")).SendKeys(password);
+            this.driver.FindElement(PasswordField).SendKeys(password);
+            return this;
         }
-         public void SubmitLoginForm()
+
+        public PageBase SubmitLogin()
         {
-            driver.FindElement(By.Id("submit_user")).Click();
-            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            wait.Until(driver => driver.FindElement(By.ClassName("avatar")));
+            this.driver.FindElement(SubmitButton).Click();
+            return new PageBase(driver);
         }
 
     }
