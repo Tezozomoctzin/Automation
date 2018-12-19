@@ -8,7 +8,7 @@ namespace Automation.OnlinerSuite
 
         }
 
-        public Preparation goToPage(){
+        public static Preparation goToPage(){
             Driver.Manage().Timeouts().IplicitWait = TimeSpan.FromSeconds(10);
             Driver.Navigate().GoToUrl("https://www.onliner.by/");
             //Driver.FindElement(By.XPath("//div[@class='auth-bar__item auth-bar__item--text']"));

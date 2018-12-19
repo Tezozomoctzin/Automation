@@ -56,6 +56,7 @@ namespace selenium_try
              }
              Console.WriteLine("Конец списка");
              webDriver.FindElement(By.CssSelector("[href*='https://shikimori.org/animes/1735-naruto-shippuuden']")).Click();
+             webDriver.FindElement(By.XPath("//span[@data-text='Наруто: Ураганные хроники']/ancestor::a[@class='cover']")).Click();
 
              IJavaScriptExecutor js = (IJavaScriptExecutor)webDriver;
              string script = "alert('" + contentList + "')";
