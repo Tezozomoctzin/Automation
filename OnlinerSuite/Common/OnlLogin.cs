@@ -1,6 +1,6 @@
 namespace Automation.OnlinerSuite
 {
-    public class Login:PageBase
+    public class OnlLogin:PageBase
     {
        
        
