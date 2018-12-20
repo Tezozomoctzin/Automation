@@ -4,15 +4,17 @@ namespace Automation.OnlinerSuite
     {
 
         private OnlLogin lgn;
+        private IWebDriver driver;
 
-        public OnlLoginFiller(IWebDriver driver):base(driver)
+        public OnlLoginFiller(IWebDriver driver)
         {
             lgn = new OnlLogin();
+            this.driver = driver;
         }
 
         public OnlLoginFiller fillLogin(){
-            Driver.FindElement(By.XPath(ElementPaths.loginFieldName)).SendKeys(OnlLoginCreds.loginName);
-            Driver.FindElement(By.Xpath(ElementPaths.loginFieldPass)).SendKeys(OnlLoginCreds.loginPass);
+            driver.FindElement(By.XPath(ElementPaths.loginFieldName)).SendKeys(OnlLoginCreds.loginName);
+            driver.FindElement(By.Xpath(ElementPaths.loginFieldPass)).SendKeys(OnlLoginCreds.loginPass);
             return this;
         }
 

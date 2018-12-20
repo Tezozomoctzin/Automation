@@ -11,7 +11,7 @@ namespace Automation.OnlinerSuite
 
         public static OnlLoginFiller CreateFiller()
         {
-            return new OnlLoginFiller();
+            return new OnlLoginFiller(this.Driver);
         }
 
         public void toLoginForm()
